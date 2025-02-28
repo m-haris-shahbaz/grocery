@@ -1,5 +1,5 @@
 import { Link, Tabs } from 'expo-router';
-import { Ionicons } from '@expo/vector-icons';
+import { AntDesign, Ionicons } from '@expo/vector-icons';
 
 export default function TabLayout() {
   return (
@@ -9,7 +9,7 @@ export default function TabLayout() {
         tabBarInactiveTintColor: '#666',
         headerShown: true,
         tabBarStyle: {
-          backgroundColor: '#fff',
+          backgroundColor: '#f0fdf4',
         },
         headerStyle: {
           backgroundColor: '#fff',
@@ -20,14 +20,7 @@ export default function TabLayout() {
         options={{
           title: 'Home',
           headerShown: false,
-          tabBarIcon: ({ color }) => <Ionicons name="home" size={24} color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="two"
-        options={{
-          title: 'Browse',
-          tabBarIcon: ({ color }) => <Ionicons name="grid" size={24} color={color} />,
+          tabBarIcon: ({ color }) => <AntDesign name="home" size={24} color={color} />,
         }}
       />
     </Tabs>

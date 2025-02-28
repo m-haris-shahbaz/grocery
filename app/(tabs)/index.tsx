@@ -3,6 +3,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import HeaderView from '~/components/layout/Header';
 import Search from '~/components/layout/Search';
 import Tabs from '~/components/layout/Tabs';
+import ProductList from '~/components/products/ProductList';
 
 export default function Home() {
   return (
@@ -13,7 +14,7 @@ export default function Home() {
         <Tabs />
       </View>
       <ScrollView className="min-h-full flex-1 bg-[#fffffc] p-4">
-        <Text>Hi</Text>
+        <ProductList />
       </ScrollView>
     </SafeAreaView>
   );

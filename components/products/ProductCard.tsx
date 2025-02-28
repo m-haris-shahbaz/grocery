@@ -14,7 +14,7 @@ type ProductCardProps = {
 
 export default function ProductCard({ product }: ProductCardProps) {
   const onPress = () => {
-    console.log('yip yip');
+    router.push('/products');
   };
   const { name, weight, price, image } = product;
   return (

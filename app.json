@@ -3,7 +3,7 @@
     "name": "grocery",
     "slug": "grocery",
     "version": "1.0.0",
-
+    "newArchEnabled": true,
     "scheme": "grocery",
     "web": {
       "bundler": "metro",

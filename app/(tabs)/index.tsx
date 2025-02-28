@@ -1,5 +1,6 @@
 import { ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import OrderNotification from '~/components/cart/OrderNotification';
 import HeaderView from '~/components/layout/Header';
 import Search from '~/components/layout/Search';
 import Tabs from '~/components/layout/Tabs';
@@ -16,6 +17,7 @@ export default function Home() {
       <ScrollView className="min-h-full flex-1 bg-[#fffffc] p-4">
         <ProductList />
       </ScrollView>
+      <OrderNotification />
     </SafeAreaView>
   );
 }

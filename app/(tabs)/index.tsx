@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <SafeAreaView className="flex-1 bg-[#e4fde1]">
       <View className="h-[200px] gap-y-6 p-4">
-        <HeaderView />
+        <HeaderView isDelivery={true} />
         <Search />
         <Tabs />
       </View>

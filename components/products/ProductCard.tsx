@@ -14,7 +14,10 @@ type ProductCardProps = {
 
 export default function ProductCard({ product }: ProductCardProps) {
   const onPress = () => {
-    router.push('/products');
+    router.push({
+      pathname: `/products/[productId]`,
+      params: { productId: product.id },
+    });
   };
   const { name, weight, price, image } = product;
   return (

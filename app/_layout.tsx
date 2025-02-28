@@ -8,10 +8,21 @@ export const unstable_settings = {
 
 export default function RootLayout() {
   return (
-    <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="products/index" />
+    <Stack
+      screenOptions={{
+        headerShown: false,
+      }}>
       <Stack.Screen name="(tabs)" />
       <Stack.Screen name="cart/index" />
+      <Stack.Screen name="products/[productId]" />
+      <Stack.Screen
+        name="search/index"
+        options={{
+          animation: 'slide_from_bottom',
+          gestureEnabled: true,
+          gestureDirection: 'vertical',
+        }}
+      />
     </Stack>
   );
 }

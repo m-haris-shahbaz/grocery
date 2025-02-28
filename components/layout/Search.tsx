@@ -1,15 +1,18 @@
 import { View, Text, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import { EvilIcons, Ionicons } from '@expo/vector-icons';
+import { router } from 'expo-router';
 
 export default function Search() {
   const [deliveryMode, setDeliveryMode] = useState<'delivery' | 'pickup'>('delivery');
 
   return (
-    <TouchableOpacity className="flex-row items-center justify-between rounded-full border border-gray-400 bg-white px-4 py-2.5">
-      <TouchableOpacity className="flex-1 flex-row items-center gap-2">
+    <View className="flex-row items-center justify-between rounded-full border border-gray-400 bg-white px-4 py-2.5">
+      <TouchableOpacity
+        className="flex-1 flex-row items-center gap-2"
+        onPress={() => router.push('/search')}>
         <EvilIcons name="search" size={28} color="gray" />
-        <Text className=" text-lg text-gray-600">Search products</Text>
+        <Text className="text-lg text-gray-600">Search products</Text>
       </TouchableOpacity>
 
       <View className="ml-2 flex-row overflow-hidden rounded-full border border-gray-200 bg-gray-50">
@@ -49,6 +52,6 @@ export default function Search() {
           </Text>
         </TouchableOpacity>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 }

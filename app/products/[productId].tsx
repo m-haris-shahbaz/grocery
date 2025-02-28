@@ -1,10 +1,12 @@
 import { View, Text, SafeAreaView, Image, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import { Entypo, AntDesign, Ionicons, MaterialIcons } from '@expo/vector-icons';
-import { router } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 
 export default function ProductScreen() {
   const [quantity, setQuantity] = useState(1);
+  const { productId } = useLocalSearchParams<{ productId: string }>();
+  console.log(productId);
   const product = {
     id: '1',
     name: 'Apple',
@@ -14,7 +16,7 @@ export default function ProductScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <SafeAreaView className="bg-background flex-1">
       {/* Header Section */}
       <View className="flex-1">
         <View className="flex-row items-center justify-between pb-4">

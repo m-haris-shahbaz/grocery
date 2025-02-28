@@ -1,6 +1,7 @@
 import { View, Text, Pressable, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { EvilIcons, FontAwesome } from '@expo/vector-icons';
+import { router } from 'expo-router';
 
 type HeaderViewProps = {
   isDelivery: boolean;
@@ -8,7 +9,14 @@ type HeaderViewProps = {
   title?: string;
 };
 
-export default function HeaderView({ isDelivery, onToggle, title }: HeaderViewProps) {
+export default function HeaderView({ isDelivery, title }: HeaderViewProps) {
+  const navigateToCart = () => {
+    router.push({
+      pathname: '/cart',
+      params: { source: 'header' },
+    });
+  };
+
   return (
     <View className="flex-row justify-between">
       {isDelivery ? (
@@ -25,7 +33,7 @@ export default function HeaderView({ isDelivery, onToggle, title }: HeaderViewPr
       ) : (
         <Text className="text-3xl font-semibold">{title}</Text>
       )}
-      <TouchableOpacity className="relative items-center self-center">
+      <TouchableOpacity onPress={navigateToCart} className="relative items-center self-center">
         <EvilIcons name="cart" size={32} color="black" />
         <View className="absolute -right-2 -top-2 h-5 w-5 items-center justify-center rounded-full bg-lime-200">
           <Text className="text-sm font-bold">5</Text>

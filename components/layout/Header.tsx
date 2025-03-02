@@ -21,7 +21,6 @@ export default function HeaderView({ isDelivery, title }: HeaderViewProps) {
     <View className="flex-row justify-between">
       {isDelivery ? (
         <View className="flex-row items-center gap-4">
-          <View className="h-14 w-14 rounded-full bg-white" />
           <View className="flex-col justify-center">
             <Text className="text-md text-gray-700">Delivery to:</Text>
             <TouchableOpacity className="flex-row items-center gap-2">

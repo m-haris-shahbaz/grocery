@@ -3,7 +3,6 @@
     "name": "grocery",
     "slug": "grocery",
     "version": "1.0.0",
-    "newArchEnabled": true,
     "scheme": "grocery",
     "web": {
       "bundler": "metro",
@@ -13,15 +12,11 @@
     "plugins": ["expo-router"],
     "experiments": {
       "typedRoutes": true,
-
       "tsconfigPaths": true
     },
-
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-
     "userInterfaceStyle": "light",
-
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -29,13 +24,23 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "config": {
+        "googleMapsApiKey": "AIzaSyB8xJAW1wJPMjROkpPmAcwjVKKcLCSzBsI"
+      },
+      "bundleIdentifier": "com.grocery.app",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "This app needs access to location to show delivery tracking.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "This app needs access to location to show delivery tracking."
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.grocery.app",
+      "permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION"]
     }
   }
 }

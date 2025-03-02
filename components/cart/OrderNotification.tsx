@@ -8,6 +8,7 @@ import Animated, {
   withTiming,
   useSharedValue,
 } from 'react-native-reanimated';
+import { router } from 'expo-router';
 
 export default function OrderNotification() {
   const translateX = useSharedValue(0);
@@ -26,6 +27,7 @@ export default function OrderNotification() {
 
   return (
     <TouchableOpacity
+      onPress={() => router.push('/orders/delivery/342')}
       className="absolute bottom-5 left-0 right-0 z-50 mx-4 overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm"
       activeOpacity={0.9}>
       <View className="flex-row items-center border-b border-gray-50 bg-[#e4fde1] p-3">

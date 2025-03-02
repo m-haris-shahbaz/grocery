@@ -1,6 +1,7 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { router } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 
 type ProductCardProps = {
   product: {
@@ -38,9 +39,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           <Text className="">AED {price}</Text>
         </View>
         <TouchableOpacity className="flex h-12 w-12 items-center justify-center rounded-full bg-lime-200">
-          <Text className="text-3xl leading-none text-black" style={{ lineHeight: 30 }}>
-            +
-          </Text>
+          <Ionicons name="basket" size={24} color="black" />
         </TouchableOpacity>
       </View>
     </TouchableOpacity>

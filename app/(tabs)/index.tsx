@@ -17,7 +17,7 @@ export default function Home() {
       <ScrollView className="min-h-full flex-1 bg-[#fffffc] p-4">
         <ProductList />
       </ScrollView>
-      <OrderNotification />
+      {/*       <OrderNotification /> */}
     </SafeAreaView>
   );
 }

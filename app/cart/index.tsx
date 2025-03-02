@@ -3,20 +3,10 @@ import React from 'react';
 import { router } from 'expo-router';
 import { AntDesign, Ionicons, MaterialIcons } from '@expo/vector-icons';
 import Animated, { FadeInDown } from 'react-native-reanimated';
+import { useCart } from '~/lib/use-cart';
 
 export default function CartScreen() {
-  const cartItems = [
-    {
-      id: '1',
-      name: 'Fresh Apples',
-      price: 4.99,
-      quantity: 2,
-      weight: '1kg',
-      image:
-        'https://www.freepnglogos.com/uploads/apple-png/apple-fruit-png-transparent-images-png-only-19.png',
-    },
-    // Add more items as needed
-  ];
+  const { CartItems } = useCart();
 
   const renderCartItem = (item: any, index: number) => (
     <Animated.View
@@ -52,7 +42,7 @@ export default function CartScreen() {
   );
 
   return (
-    <SafeAreaView className="bg-background flex-1 justify-between">
+    <SafeAreaView className="flex-1 justify-between bg-background">
       <View className="flex-1 p-4">
         {/* Header */}
         <View className="flex-row items-center justify-between pb-4">
@@ -69,7 +59,7 @@ export default function CartScreen() {
 
         {/* Cart Items */}
         <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
-          {cartItems.map((item, index) => renderCartItem(item, index))}
+          {CartItems.map((item, index) => renderCartItem(item, index))}
         </ScrollView>
 
         {/* Bottom Sheet */}
@@ -91,7 +81,7 @@ export default function CartScreen() {
           </View>
 
           <TouchableOpacity
-            className="bg-primary mt-6 rounded-full py-4"
+            className="mt-6 rounded-full bg-primary py-4"
             onPress={() => router.push('/cart/checkout')}>
             <Text className="text-center text-lg font-semibold text-black">
               Proceed to Checkout

@@ -2,21 +2,28 @@ import { View, Text, SafeAreaView, Image, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react';
 import { Entypo, AntDesign, Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { router, useLocalSearchParams } from 'expo-router';
+import { useCart } from '~/lib/use-cart';
 
 export default function ProductScreen() {
   const [quantity, setQuantity] = useState(1);
   const { productId } = useLocalSearchParams<{ productId: string }>();
-  console.log(productId);
+  const { addProduct } = useCart();
   const product = {
     id: '1',
     name: 'Apple',
-    weight: '1kg',
+    weight: 1000,
+    category: 'Fruits',
     price: 5,
     image: 'https://img.freepik.com/free-psd/close-up-delicious-apple_23-2151868338.jpg',
   };
 
+  const addToCart = () => {
+    addProduct({ ...product, quantity });
+    router.push('/cart');
+  };
+
   return (
-    <SafeAreaView className="bg-background flex-1">
+    <SafeAreaView className="flex-1 bg-background">
       {/* Header Section */}
       <View className="flex-1">
         <View className="flex-row items-center justify-between pb-4">
@@ -65,7 +72,7 @@ export default function ProductScreen() {
               <AntDesign name="pluscircle" size={32} color="#2f6f39" />
             </TouchableOpacity>
           </View>
-          <TouchableOpacity className="bg-primary ml-4 flex-1 items-center rounded-full px-6 py-5">
+          <TouchableOpacity className="ml-4 flex-1 items-center rounded-full bg-primary px-6 py-5">
             <Text className="font-semibold text-black">Add to Cart</Text>
           </TouchableOpacity>
         </View>

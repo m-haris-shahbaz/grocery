@@ -12,6 +12,7 @@ export default function ProductScreen() {
     id: '1',
     name: 'Apple',
     weight: 1000,
+    stock: 5,
     category: 'Fruits',
     price: 5,
     image: 'https://img.freepik.com/free-psd/close-up-delicious-apple_23-2151868338.jpg',
@@ -72,7 +73,9 @@ export default function ProductScreen() {
               <AntDesign name="pluscircle" size={32} color="#2f6f39" />
             </TouchableOpacity>
           </View>
-          <TouchableOpacity className="ml-4 flex-1 items-center rounded-full bg-primary px-6 py-5">
+          <TouchableOpacity
+            onPress={addToCart}
+            className="ml-4 flex-1 items-center rounded-full bg-primary px-6 py-5">
             <Text className="font-semibold text-black">Add to Cart</Text>
           </TouchableOpacity>
         </View>

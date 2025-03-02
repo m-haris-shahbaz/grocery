@@ -47,7 +47,13 @@ export const useCart = create<CartState>()(
         set((state) => ({
           CartItems: state.CartItems.map((product) =>
             product.id === productId
-              ? { ...product, quantity: (product.quantity || 1) + 1 }
+              ? {
+                  ...product,
+                  quantity:
+                    (product.quantity || 1) + 1 <= product.stock
+                      ? (product.quantity || 1) + 1
+                      : product.quantity,
+                }
               : product
           ),
         })),

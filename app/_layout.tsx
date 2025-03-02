@@ -9,6 +9,7 @@ export default function RootLayout() {
       }}>
       <Stack.Screen name="(tabs)" />
       <Stack.Screen name="cart/index" />
+      <Stack.Screen name="cart/checkout" />
       <Stack.Screen name="products/[productId]" />
       <Stack.Screen
         name="search/index"

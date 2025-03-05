@@ -32,6 +32,11 @@ export default function HeaderView({ isDelivery, title }: HeaderViewProps) {
               <Text className="text-lg font-semibold">
                 {`${orderAddress.title}, ${orderAddress.building}` || 'Address'}
               </Text>
+              <TouchableOpacity
+                onPress={() => router.push('/store/1')}
+                className="flex-row items-center gap-1">
+                <Text>Hi</Text>
+              </TouchableOpacity>
               <FontAwesome name="angle-down" size={16} color="black" />
             </TouchableOpacity>
           </View>

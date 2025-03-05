@@ -6,6 +6,7 @@ export type Product = {
   stock: number;
   quantity: number;
   image: string;
+  store: Store;
   category: string;
 };
 
@@ -17,4 +18,16 @@ export type Address = {
   building: string;
   landmark?: string;
   isDefault: boolean;
+};
+
+export type Store = {
+  id: string;
+  name: string;
+  address: string;
+  city: string;
+  phone: string;
+  image: string;
+  rating: number;
+  categories: string[];
+  products: Product[];
 };

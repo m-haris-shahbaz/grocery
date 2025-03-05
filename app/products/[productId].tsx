@@ -69,7 +69,8 @@ export default function ProductScreen() {
               <AntDesign name="minuscircle" size={32} color="#2f6f39" />
             </TouchableOpacity>
             <Text className="w-10 text-center text-xl font-semibold">{quantity}</Text>
-            <TouchableOpacity onPress={() => setQuantity(quantity + 1)}>
+            <TouchableOpacity
+              onPress={() => setQuantity((prev) => (prev + 1 <= product.stock ? prev + 1 : prev))}>
               <AntDesign name="pluscircle" size={32} color="#2f6f39" />
             </TouchableOpacity>
           </View>

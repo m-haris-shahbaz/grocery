@@ -1,10 +1,11 @@
 import { View, Text, SafeAreaView, ScrollView, TouchableOpacity, TextInput } from 'react-native';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useRef } from 'react';
 import { router } from 'expo-router';
 import { Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { useCart } from '~/lib/use-cart';
 import { currencyFormatter } from '~/lib/helper';
+import AddressModal, { AddressType, AddressModalRef } from '~/components/user/Address';
 
 type PaymentMethod = 'card' | 'cash' | 'wallet';
 type DeliveryOption = 'standard' | 'express';
@@ -13,6 +14,15 @@ export default function CheckoutScreen() {
   const { CartItems, removeAllProducts } = useCart();
   const [selectedPayment, setSelectedPayment] = useState<PaymentMethod>('card');
   const [selectedDelivery, setSelectedDelivery] = useState<DeliveryOption>('standard');
+  const [selectedAddress, setSelectedAddress] = useState<AddressType>({
+    id: '1',
+    type: 'home',
+    title: 'Home',
+    address: '123 Green Street, Al Shawamekh, Abu Dhabi',
+    isDefault: true,
+  });
+
+  const addressModalRef = useRef<AddressModalRef>(null);
 
   // Calculate totals
   const totals = useMemo(() => {
@@ -45,6 +55,14 @@ export default function CheckoutScreen() {
     });
   };
 
+  const handleAddressChange = () => {
+    addressModalRef.current?.open();
+  };
+
+  const handleSelectAddress = (address: AddressType) => {
+    setSelectedAddress(address);
+  };
+
   return (
     <SafeAreaView className="flex-1 bg-background">
       <View className="flex-1 p-4">
@@ -63,18 +81,27 @@ export default function CheckoutScreen() {
             className="mb-6 rounded-xl border border-gray-200 bg-white p-4">
             <View className="flex-row items-center justify-between">
               <Text className="text-lg font-medium text-gray-900">Delivery Address</Text>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={handleAddressChange}>
                 <Text className="font-medium text-lime-600">Change</Text>
               </TouchableOpacity>
             </View>
 
             <View className="mt-3 flex-row items-center">
               <View className="mr-3 rounded-full bg-lime-100 p-2">
-                <MaterialIcons name="location-on" size={20} color="#2f6f39" />
+                {selectedAddress.type === 'home' ? (
+                  <Ionicons name="home-outline" size={20} color="#2f6f39" />
+                ) : selectedAddress.type === 'work' ? (
+                  <MaterialIcons name="work-outline" size={20} color="#2f6f39" />
+                ) : (
+                  <MaterialIcons name="location-on" size={20} color="#2f6f39" />
+                )}
               </View>
               <View className="flex-1">
-                <Text className="font-medium text-gray-900">Home</Text>
-                <Text className="text-gray-500">123 Green Street, Al Shawamekh, Abu Dhabi</Text>
+                <Text className="font-medium text-gray-900">{selectedAddress.title}</Text>
+                <Text className="text-gray-500">{selectedAddress.address}</Text>
+                {selectedAddress.building && (
+                  <Text className="text-gray-500">{selectedAddress.building}</Text>
+                )}
               </View>
             </View>
           </Animated.View>
@@ -227,6 +254,13 @@ export default function CheckoutScreen() {
           </TouchableOpacity>
         </Animated.View>
       </View>
+
+      {/* Address Modal */}
+      <AddressModal
+        ref={addressModalRef}
+        onSelectAddress={handleSelectAddress}
+        selectedAddressId={selectedAddress.id}
+      />
     </SafeAreaView>
   );
 }

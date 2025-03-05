@@ -2,12 +2,13 @@ import { View, Text, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { router } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import { weightConverter } from '~/lib/helper';
 
 type ProductCardProps = {
   product: {
     id: string;
     name: string;
-    weight: string;
+    weight: number;
     price: number;
     image: string;
   };
@@ -35,7 +36,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       <View className="flex-row items-center justify-between">
         <View className="gap-y-2">
           <Text>{name}</Text>
-          <Text className="text-md text-gray-600">{weight}</Text>
+          <Text className="text-md text-gray-600">{weightConverter(weight)}</Text>
           <Text className="">AED {price}</Text>
         </View>
         <TouchableOpacity className="flex h-12 w-12 items-center justify-center rounded-full bg-lime-200">

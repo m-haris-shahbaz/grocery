@@ -1,32 +1,10 @@
 import { View, Text, ScrollView } from 'react-native';
 import React from 'react';
 import ProductCard from './ProductCard';
+import data from '~/lib/products.json';
 
 export default function ProductList() {
-  const product = [
-    {
-      id: '1',
-      name: 'Apple',
-      weight: '1kg',
-      price: 5,
-      image: 'https://img.freepik.com/free-psd/close-up-delicious-apple_23-2151868338.jpg',
-    },
-    {
-      id: '2',
-      name: 'Banana',
-      weight: '1kg',
-      price: 3,
-      image: 'https://clipart-library.com/image_gallery2/Banana.png',
-    },
-    {
-      id: '3',
-      name: 'Orange',
-      weight: '1kg',
-      price: 4,
-      image:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRufcdr9qZyUcOURpoYKh0CKbdNv7dYpW0Zgw&s',
-    },
-  ];
+  const products = data.filter((c) => c.category === 'Fruits');
   return (
     <View>
       <View className="flex-row items-center justify-between">
@@ -35,7 +13,7 @@ export default function ProductList() {
       </View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <View className="flex-row gap-2 py-3">
-          {product.map((product) => (
+          {products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </View>

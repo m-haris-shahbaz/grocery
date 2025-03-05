@@ -1,7 +1,8 @@
 import { View, Text, SafeAreaView, SectionList, Image } from 'react-native';
 import React from 'react';
 import HeaderView from '~/components/layout/Header';
-import { FontAwesome5 } from '@expo/vector-icons';
+import data from '~/lib/products.json';
+import { currencyFormatter } from '~/lib/helper';
 
 export default function OrdersScreen() {
   const orders = [
@@ -53,7 +54,7 @@ export default function OrdersScreen() {
             <Text className="text-xs font-medium">{item.status}</Text>
           </View>
         </View>
-        <Text className="text-lg font-semibold">${item.total}</Text>
+        <Text className="text-lg font-semibold">{currencyFormatter(item.total)}</Text>
       </View>
 
       <View className="mt-2 flex-row items-center justify-between border-t border-gray-100 pt-2">

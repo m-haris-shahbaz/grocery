@@ -1,0 +1,202 @@
+[
+  {
+    "id": "1",
+    "name": "Apple",
+    "weight": 1000,
+    "price": 5,
+    "image": "https://img.freepik.com/free-psd/close-up-delicious-apple_23-2151868338.jpg",
+    "stock": 10,
+    "description": "Fresh apple from the farm",
+    "category": "Fruits"
+  },
+  {
+    "id": "2",
+    "name": "Banana",
+    "weight": 1000,
+    "price": 3,
+    "image": "https://clipart-library.com/image_gallery2/Banana.png",
+    "stock": 10,
+    "description": "Fresh banana from the farm",
+    "category": "Fruits"
+  },
+  {
+    "id": "3",
+    "name": "Orange",
+    "weight": 1000,
+    "price": 4,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/c/c4/Orange-Fruit-Pieces.jpg",
+    "stock": 10,
+    "description": "Fresh orange from the farm",
+    "category": "Fruits"
+  },
+  {
+    "id": "4",
+    "name": "Grapes",
+    "weight": 500,
+    "price": 6,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/3/36/Table_grapes_on_white.jpg",
+    "stock": 15,
+    "description": "Sweet and juicy grapes",
+    "category": "Fruits"
+  },
+  {
+    "id": "5",
+    "name": "Mango",
+    "weight": 1000,
+    "price": 7,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/9/90/Hapus_Mango.jpg",
+    "stock": 20,
+    "description": "Ripe and delicious mangoes",
+    "category": "Fruits"
+  },
+  {
+    "id": "6",
+    "name": "Carrot",
+    "weight": 1000,
+    "price": 2,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/4/43/CarrotDiversityLg.jpg",
+    "stock": 12,
+    "description": "Fresh organic carrots",
+    "category": "Vegetables"
+  },
+  {
+    "id": "7",
+    "name": "Potato",
+    "weight": 1000,
+    "price": 1.5,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/d/de/Potato_and_cross_section.jpg",
+    "stock": 30,
+    "description": "Fresh farm-grown potatoes",
+    "category": "Vegetables"
+  },
+  {
+    "id": "8",
+    "name": "Tomato",
+    "weight": 1000,
+    "price": 2.5,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/8/89/Tomato_je.jpg",
+    "stock": 18,
+    "description": "Fresh red tomatoes",
+    "category": "Vegetables"
+  },
+  {
+    "id": "9",
+    "name": "Broccoli",
+    "weight": 500,
+    "price": 4,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/0/03/Broccoli_and_cross_section_edit.jpg",
+    "stock": 10,
+    "description": "Organic green broccoli",
+    "category": "Vegetables"
+  },
+  {
+    "id": "10",
+    "name": "Onion",
+    "weight": 1000,
+    "price": 2,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/3/3f/Yellow_Onion_with_Stalks.jpg",
+    "stock": 25,
+    "description": "Fresh onions for cooking",
+    "category": "Vegetables"
+  },
+  {
+    "id": "11",
+    "name": "Milk",
+    "weight": 1000,
+    "price": 3,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7f/Milk_glass.jpg",
+    "stock": 20,
+    "description": "Fresh full-cream milk",
+    "category": "Dairy"
+  },
+  {
+    "id": "12",
+    "name": "Cheese",
+    "weight": 250,
+    "price": 5,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Cheese_Assortment.jpg",
+    "stock": 12,
+    "description": "Rich and creamy cheese",
+    "category": "Dairy"
+  },
+  {
+    "id": "13",
+    "name": "Yogurt",
+    "weight": 500,
+    "price": 4,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/0/02/Yogurt.jpg",
+    "stock": 15,
+    "description": "Thick and delicious yogurt",
+    "category": "Dairy"
+  },
+  {
+    "id": "14",
+    "name": "Rice",
+    "weight": 5000,
+    "price": 10,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/d/db/Various_rice.jpg",
+    "stock": 25,
+    "description": "Premium quality basmati rice",
+    "category": "Grains"
+  },
+  {
+    "id": "15",
+    "name": "Lentils",
+    "weight": 1000,
+    "price": 6,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/e/e5/Lentils2010.jpg",
+    "stock": 20,
+    "description": "Protein-rich lentils",
+    "category": "Pulses"
+  },
+  {
+    "id": "16",
+    "name": "Oats",
+    "weight": 1000,
+    "price": 5,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/3/39/Oat_flakes.jpg",
+    "stock": 18,
+    "description": "Healthy whole-grain oats",
+    "category": "Grains"
+  },
+  {
+    "id": "17",
+    "name": "Coffee",
+    "weight": 500,
+    "price": 8,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/b/b3/Coffee_beans_0083.jpg",
+    "stock": 15,
+    "description": "Aromatic ground coffee",
+    "category": "Beverages"
+  },
+  {
+    "id": "18",
+    "name": "Tea",
+    "weight": 500,
+    "price": 7,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/f/f4/Turkish_Tea_Rize.jpg",
+    "stock": 20,
+    "description": "Premium green tea",
+    "category": "Beverages"
+  },
+  {
+    "id": "19",
+    "name": "Bread",
+    "weight": 500,
+    "price": 3,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Sourdough.jpg",
+    "stock": 25,
+    "description": "Freshly baked whole wheat bread",
+    "category": "Bakery"
+  },
+  {
+    "id": "20",
+    "name": "Cookies",
+    "weight": 500,
+    "price": 6,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Chocolate_Chip_Cookies_-_kimberlykv.jpg",
+    "stock": 15,
+    "description": "Crunchy chocolate chip cookies",
+    "category": "Bakery"
+  }
+]

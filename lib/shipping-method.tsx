@@ -1,20 +1,24 @@
-import { persist } from 'zustand/middleware';
+import { createJSONStorage, persist } from 'zustand/middleware';
 import { Address } from './types';
 import { create } from 'zustand';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { set } from 'zod';
 
-export interface ShippingState {
+export interface OrderState {
   method: 'delivery' | 'pickup';
-  address: Address;
-  setAddress: (address: Address) => void;
+  orderAddress: Address;
+  defaultAddress: Address;
+  setOrderAddress: (address: Address) => void;
   setMethod: (method: 'delivery' | 'pickup') => void;
+  setDefaultAddress: (address: Address) => void;
 }
 
-export const useShippingMethod = create<ShippingState>()(
+export const useOrderMethod = create<OrderState>()(
   persist(
     (set) => ({
       method: 'delivery',
-      address: {
+      addressList: [],
+      defaultAddress: {
         id: '',
         title: '',
         type: 'home',
@@ -22,12 +26,23 @@ export const useShippingMethod = create<ShippingState>()(
         building: '',
         isDefault: false,
       },
-      setAddress: (address) => set({ address }),
+      orderAddress: {
+        id: '',
+        title: '',
+        type: 'home',
+        address: '',
+        building: '',
+        isDefault: false,
+      },
+      setOrderAddress: (address) => set({ orderAddress: address }),
       setMethod: (method) => set({ method }),
+      setDefaultAddress: (defaultAddress) => set({ defaultAddress }),
     }),
     {
-      name: 'shipping-method',
-      getStorage: () => AsyncStorage,
+      name: 'order-method',
+      storage: createJSONStorage(() => AsyncStorage),
+      // Optional: Only store the cart items in storage
+      partialize: (state) => ({ defaultAddress: state.defaultAddress, method: state.method }),
     }
   )
 );

@@ -3,6 +3,7 @@ import React from 'react';
 import { EvilIcons, FontAwesome } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { useCart } from '~/lib/use-cart';
+import { useOrderMethod } from '~/lib/shipping-method';
 
 type HeaderViewProps = {
   isDelivery: boolean;
@@ -19,6 +20,7 @@ export default function HeaderView({ isDelivery, title }: HeaderViewProps) {
   };
 
   const { CartItems } = useCart();
+  const { method, orderAddress } = useOrderMethod();
 
   return (
     <View className="flex-row justify-between">
@@ -27,7 +29,9 @@ export default function HeaderView({ isDelivery, title }: HeaderViewProps) {
           <View className="flex-col justify-center">
             <Text className="text-md text-gray-700">Delivery to:</Text>
             <TouchableOpacity className="flex-row items-center gap-2">
-              <Text className="text-lg font-semibold">Al Shawamekh 10</Text>
+              <Text className="text-lg font-semibold">
+                {`${orderAddress.title}, ${orderAddress.building}` || 'Address'}
+              </Text>
               <FontAwesome name="angle-down" size={16} color="black" />
             </TouchableOpacity>
           </View>

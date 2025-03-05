@@ -1,9 +1,9 @@
-import React, { useState, useRef, forwardRef, useImperativeHandle } from 'react';
+import React, { useState, useRef, forwardRef, useImperativeHandle, useEffect } from 'react';
 import {
   View,
   Text,
   TouchableOpacity,
-  FlatList,
+  ScrollView, // Replace FlatList with ScrollView
   TextInput,
   Modal,
   Animated,
@@ -12,17 +12,10 @@ import {
 } from 'react-native';
 import { MaterialIcons, Ionicons, Feather } from '@expo/vector-icons';
 import AddressForm, { AddressFormRef } from './AddressForm';
+import { Address } from '~/lib/types';
+import { useOrderMethod } from '~/lib/shipping-method';
 
 // Updated type definition with optional fields for form
-export type AddressType = {
-  id: string;
-  type: 'home' | 'work' | 'other';
-  title: string;
-  address: string;
-  isDefault: boolean;
-  building?: string;
-  landmark?: string;
-};
 
 export type AddressModalRef = {
   open: () => void;
@@ -30,12 +23,12 @@ export type AddressModalRef = {
 };
 
 type AddressModalProps = {
-  onSelectAddress: (address: AddressType) => void;
+  onSelectAddress: (address: Address) => void;
   selectedAddressId?: string;
 };
 
 // Sample address data
-const initialAddresses = [
+const initialAddresses: Address[] = [
   {
     id: '1',
     type: 'home',
@@ -67,16 +60,26 @@ const { height } = Dimensions.get('window');
 const AddressModal = forwardRef<AddressModalRef, AddressModalProps>(
   ({ onSelectAddress, selectedAddressId = '1' }, ref) => {
     const [visible, setVisible] = useState(false);
-    const [addresses, setAddresses] = useState<AddressType[]>(initialAddresses);
+    const [addresses, setAddresses] = useState<Address[]>(initialAddresses);
     const [selectedAddress, setSelectedAddress] = useState<string>(selectedAddressId);
     const [searchQuery, setSearchQuery] = useState('');
 
     const slideAnim = useRef(new Animated.Value(height)).current;
     const backdropOpacity = useRef(new Animated.Value(0)).current;
     const addressFormRef = useRef<AddressFormRef>(null);
+    const { setOrderAddress, orderAddress } = useOrderMethod();
+
+    // Add this useEffect to update selectedAddress when selectedAddressId prop changes
+    useEffect(() => {
+      setSelectedAddress(selectedAddressId);
+      setOrderAddress(addresses.find((addr) => addr.id === selectedAddressId) || orderAddress);
+    }, [selectedAddressId]);
 
     useImperativeHandle(ref, () => ({
       open: () => {
+        // Ensure selectedAddress is set correctly when opening
+        setSelectedAddress(selectedAddressId);
+        setSearchQuery(''); // Clear any previous search queries
         setVisible(true);
         Animated.parallel([
           Animated.timing(slideAnim, {
@@ -113,13 +116,18 @@ const AddressModal = forwardRef<AddressModalRef, AddressModalProps>(
       });
     };
 
+    // Add debug logging for selection events
     const handleSelectAddress = (addressId: string) => {
+      console.log('Address selected:', addressId);
       setSelectedAddress(addressId);
       const address = addresses.find((addr) => addr.id === addressId);
       if (address) {
+        console.log('Calling onSelectAddress with:', address.title);
         onSelectAddress(address);
+        handleClose();
+      } else {
+        console.warn('Selected address not found in address list');
       }
-      handleClose();
     };
 
     const handleAddAddress = () => {
@@ -133,7 +141,7 @@ const AddressModal = forwardRef<AddressModalRef, AddressModalProps>(
       }
     };
 
-    const handleSaveAddress = (newAddress: AddressType) => {
+    const handleSaveAddress = (newAddress: Address) => {
       // Check if it's an update or new address
       const existingIndex = addresses.findIndex((addr) => addr.id === newAddress.id);
 
@@ -166,7 +174,6 @@ const AddressModal = forwardRef<AddressModalRef, AddressModalProps>(
         setAddresses([...updatedAddresses, newAddress]);
       }
     };
-
     const filteredAddresses =
       searchQuery.trim() === ''
         ? addresses
@@ -190,7 +197,7 @@ const AddressModal = forwardRef<AddressModalRef, AddressModalProps>(
     return (
       <>
         <Modal transparent visible={visible} animationType="none" onRequestClose={handleClose}>
-          <View className="flex-1 justify-end">
+          <View className="flex-1 justify-end p-4">
             <Pressable className="absolute inset-0" onPress={handleClose}>
               <Animated.View
                 className="absolute inset-0 bg-black"
@@ -199,8 +206,11 @@ const AddressModal = forwardRef<AddressModalRef, AddressModalProps>(
             </Pressable>
 
             <Animated.View
-              className="max-h-[70%] rounded-t-3xl bg-white"
-              style={{ transform: [{ translateY: slideAnim }] }}>
+              className="rounded-t-3xl bg-white"
+              style={{
+                transform: [{ translateY: slideAnim }],
+                maxHeight: '80%', // Add explicit max height
+              }}>
               <View className="flex-row items-center justify-between border-b border-gray-100 p-5">
                 <Text className="text-xl font-semibold">Select Delivery Address</Text>
                 <TouchableOpacity onPress={handleClose}>
@@ -224,19 +234,33 @@ const AddressModal = forwardRef<AddressModalRef, AddressModalProps>(
                 )}
               </View>
 
-              {filteredAddresses.length === 0 ? (
-                <View className="items-center justify-center py-6">
-                  <Text className="text-gray-500">No addresses found</Text>
+              {/* Debug information */}
+              {__DEV__ && (
+                <View className="px-4">
+                  <Text className="text-xs text-gray-500">
+                    Found {filteredAddresses.length} addresses
+                  </Text>
                 </View>
-              ) : (
-                <FlatList
-                  data={filteredAddresses}
-                  keyExtractor={(item) => item.id}
-                  className="flex-1"
-                  renderItem={({ item }) => (
-                    <View className="mx-4 border-b border-gray-100">
-                      <TouchableOpacity
-                        className={`flex-row items-center p-4 ${selectedAddress === item.id ? 'bg-lime-50' : ''}`}
+              )}
+
+              {/* Use a View with fixed height to contain scroll content */}
+              <View className="border-b border-t border-gray-100" style={{ height: 300 }}>
+                {filteredAddresses.length === 0 ? (
+                  <View className="items-center justify-center py-6">
+                    <Text className="text-gray-500">No addresses found</Text>
+                  </View>
+                ) : (
+                  <ScrollView
+                    className="bg-gray-50"
+                    contentContainerStyle={{ padding: 16 }}
+                    showsVerticalScrollIndicator={true}>
+                    {filteredAddresses.map((item) => (
+                      <Pressable
+                        key={item.id}
+                        android_ripple={{ color: 'rgba(0, 0, 0, 0.1)' }}
+                        className={`mb-3 flex-row items-center rounded-lg border border-gray-200 bg-white p-4 ${
+                          selectedAddress === item.id ? 'border-lime-300 bg-lime-50' : ''
+                        }`}
                         onPress={() => handleSelectAddress(item.id)}>
                         <View className="mr-3 h-10 w-10 items-center justify-center rounded-full bg-lime-100">
                           {renderAddressIcon(item.type)}
@@ -255,24 +279,29 @@ const AddressModal = forwardRef<AddressModalRef, AddressModalProps>(
                             <Text className="text-sm text-gray-500">{item.building}</Text>
                           )}
                         </View>
-                        <View className="flex-row">
+                        <View className="flex-row items-center">
                           <TouchableOpacity
-                            className="p-2"
-                            onPress={() => handleEditAddress(item.id)}>
+                            className="mr-2 p-2"
+                            onPress={(e) => {
+                              e.stopPropagation();
+                              handleEditAddress(item.id);
+                            }}>
                             <MaterialIcons name="edit" size={20} color="#2f6f39" />
                           </TouchableOpacity>
                           {selectedAddress === item.id ? (
                             <MaterialIcons name="check-circle" size={24} color="#2f6f39" />
-                          ) : null}
+                          ) : (
+                            <View className="h-6 w-6 rounded-full border border-gray-300" />
+                          )}
                         </View>
-                      </TouchableOpacity>
-                    </View>
-                  )}
-                />
-              )}
+                      </Pressable>
+                    ))}
+                  </ScrollView>
+                )}
+              </View>
 
               <TouchableOpacity
-                className="mx-4 my-4 flex-row items-center justify-center rounded-xl bg-primary py-3"
+                className="mx-4 my-4 flex-row items-center justify-center rounded-full bg-primary py-3"
                 onPress={handleAddAddress}>
                 <MaterialIcons name="add" size={22} color="black" />
                 <Text className="ml-2 text-base font-semibold">Add New Address</Text>

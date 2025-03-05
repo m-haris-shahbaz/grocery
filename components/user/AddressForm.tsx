@@ -4,7 +4,8 @@ import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { z } from 'zod';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { AddressType } from './Address';
+import { Address } from '~/lib/types';
+import { useOrderMethod } from '~/lib/shipping-method';
 
 // Define address schema with Zod
 const addressSchema = z.object({
@@ -19,19 +20,19 @@ const addressSchema = z.object({
 type AddressFormData = z.infer<typeof addressSchema>;
 
 export type AddressFormRef = {
-  open: (address?: AddressType) => void;
+  open: (address?: Address) => void;
   close: () => void;
 };
 
 type AddressFormProps = {
-  onSave: (address: AddressType) => void;
+  onSave: (address: Address) => void;
 };
 
 const AddressForm = forwardRef<AddressFormRef, AddressFormProps>(({ onSave }, ref) => {
   const [visible, setVisible] = useState(false);
   const [addressType, setAddressType] = useState<'home' | 'work' | 'other'>('home');
   const [isDefault, setIsDefault] = useState(false);
-
+  const { setDefaultAddress } = useOrderMethod();
   const {
     control,
     handleSubmit,
@@ -50,7 +51,7 @@ const AddressForm = forwardRef<AddressFormRef, AddressFormProps>(({ onSave }, re
     },
   });
 
-  const openModal = (address?: AddressType) => {
+  const openModal = (address?: Address) => {
     setVisible(true);
 
     // If editing an existing address, populate the form
@@ -83,7 +84,7 @@ const AddressForm = forwardRef<AddressFormRef, AddressFormProps>(({ onSave }, re
   }));
 
   const onSubmit = (data: AddressFormData) => {
-    const newAddress: AddressType = {
+    const newAddress: Address = {
       id: Date.now().toString(), // Generate a unique ID
       title: data.title,
       type: data.type,
@@ -92,7 +93,7 @@ const AddressForm = forwardRef<AddressFormRef, AddressFormProps>(({ onSave }, re
       building: data.building,
       landmark: data.landmark,
     };
-
+    setDefaultAddress(newAddress);
     onSave(newAddress);
     closeModal();
   };

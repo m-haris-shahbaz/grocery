@@ -5,7 +5,9 @@ import { Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-ic
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { useCart } from '~/lib/use-cart';
 import { currencyFormatter } from '~/lib/helper';
-import AddressModal, { AddressType, AddressModalRef } from '~/components/user/Address';
+import AddressModal, { AddressModalRef } from '~/components/user/Address';
+import { useOrderMethod } from '~/lib/shipping-method';
+import { Address } from '~/lib/types';
 
 type PaymentMethod = 'card' | 'cash' | 'wallet';
 type DeliveryOption = 'standard' | 'express';
@@ -14,13 +16,7 @@ export default function CheckoutScreen() {
   const { CartItems, removeAllProducts } = useCart();
   const [selectedPayment, setSelectedPayment] = useState<PaymentMethod>('card');
   const [selectedDelivery, setSelectedDelivery] = useState<DeliveryOption>('standard');
-  const [selectedAddress, setSelectedAddress] = useState<AddressType>({
-    id: '1',
-    type: 'home',
-    title: 'Home',
-    address: '123 Green Street, Al Shawamekh, Abu Dhabi',
-    isDefault: true,
-  });
+  const { orderAddress, setOrderAddress } = useOrderMethod();
 
   const addressModalRef = useRef<AddressModalRef>(null);
 
@@ -59,8 +55,8 @@ export default function CheckoutScreen() {
     addressModalRef.current?.open();
   };
 
-  const handleSelectAddress = (address: AddressType) => {
-    setSelectedAddress(address);
+  const handleSelectAddress = (address: Address) => {
+    setOrderAddress(address);
   };
 
   return (
@@ -88,19 +84,19 @@ export default function CheckoutScreen() {
 
             <View className="mt-3 flex-row items-center">
               <View className="mr-3 rounded-full bg-lime-100 p-2">
-                {selectedAddress.type === 'home' ? (
+                {orderAddress.type === 'home' ? (
                   <Ionicons name="home-outline" size={20} color="#2f6f39" />
-                ) : selectedAddress.type === 'work' ? (
+                ) : orderAddress.type === 'work' ? (
                   <MaterialIcons name="work-outline" size={20} color="#2f6f39" />
                 ) : (
                   <MaterialIcons name="location-on" size={20} color="#2f6f39" />
                 )}
               </View>
               <View className="flex-1">
-                <Text className="font-medium text-gray-900">{selectedAddress.title}</Text>
-                <Text className="text-gray-500">{selectedAddress.address}</Text>
-                {selectedAddress.building && (
-                  <Text className="text-gray-500">{selectedAddress.building}</Text>
+                <Text className="font-medium text-gray-900">{orderAddress.title}</Text>
+                <Text className="text-gray-500">{orderAddress.address}</Text>
+                {orderAddress.building && (
+                  <Text className="text-gray-500">{orderAddress.building}</Text>
                 )}
               </View>
             </View>
@@ -259,7 +255,7 @@ export default function CheckoutScreen() {
       <AddressModal
         ref={addressModalRef}
         onSelectAddress={handleSelectAddress}
-        selectedAddressId={selectedAddress.id}
+        selectedAddressId={orderAddress.id}
       />
     </SafeAreaView>
   );

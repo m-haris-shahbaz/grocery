@@ -29,7 +29,7 @@ export default function SearchScreen() {
   );
 
   return (
-    <SafeAreaView className="bg-background flex-1">
+    <SafeAreaView className="flex-1 bg-background">
       <View className="flex-1 p-4">
         <View className="flex-row items-center justify-between pb-4">
           <View className="flex-row items-center gap-3">
@@ -40,11 +40,11 @@ export default function SearchScreen() {
           </View>
         </View>
 
-        <View className="flex-row items-center rounded-full border border-gray-300 px-4 py-2">
-          <EvilIcons name="search" size={28} color="black" />
+        <View className="flex-row items-center rounded-full border border-gray-300 px-4 py-4">
+          <EvilIcons name="search" size={20} color="black" />
           <TextInput
             ref={inputRef}
-            className="ml-2 flex-1 text-lg text-gray-900"
+            className="ml-2 flex-1 text-base text-gray-900"
             placeholder="Search products"
             placeholderTextColor="#666"
             value={searchTerm}

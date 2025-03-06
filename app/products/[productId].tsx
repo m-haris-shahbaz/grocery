@@ -2,7 +2,7 @@ import { View, Text, SafeAreaView, Image, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react';
 import { Entypo, AntDesign, Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { router, useLocalSearchParams } from 'expo-router';
-import { useCart } from '~/lib/use-cart';
+import { useCart } from '~/lib/states/use-cart';
 
 export default function ProductScreen() {
   const [quantity, setQuantity] = useState(1);

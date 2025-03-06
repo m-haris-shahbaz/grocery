@@ -5,7 +5,7 @@ import { z } from 'zod';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Address } from '~/lib/types';
-import { useOrderMethod } from '~/lib/shipping-method';
+import { useOrderMethod } from '~/lib/states/shipping-method';
 
 // Define address schema with Zod
 const addressSchema = z.object({

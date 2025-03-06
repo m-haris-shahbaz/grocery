@@ -2,8 +2,8 @@ import { View, Text, Pressable, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { EvilIcons, FontAwesome } from '@expo/vector-icons';
 import { router } from 'expo-router';
-import { useCart } from '~/lib/use-cart';
-import { useOrderMethod } from '~/lib/shipping-method';
+import { useCart } from '~/lib/states/use-cart';
+import { useOrderMethod } from '~/lib/states/shipping-method';
 
 type HeaderViewProps = {
   isDelivery: boolean;

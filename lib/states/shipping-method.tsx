@@ -1,5 +1,5 @@
 import { createJSONStorage, persist } from 'zustand/middleware';
-import { Address } from './types';
+import { Address } from '../types';
 import { create } from 'zustand';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { set } from 'zod';

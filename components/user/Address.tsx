@@ -13,7 +13,7 @@ import {
 import { MaterialIcons, Ionicons, Feather } from '@expo/vector-icons';
 import AddressForm, { AddressFormRef } from './AddressForm';
 import { Address } from '~/lib/types';
-import { useOrderMethod } from '~/lib/shipping-method';
+import { useOrderMethod } from '~/lib/states/shipping-method';
 
 // Updated type definition with optional fields for form
 

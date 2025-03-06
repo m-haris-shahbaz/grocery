@@ -3,7 +3,7 @@ import React from 'react';
 import { router } from 'expo-router';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { weightConverter } from '~/lib/helper';
-import { useCart } from '~/lib/use-cart';
+import { useCart } from '~/lib/states/use-cart';
 import { Product } from '~/lib/types';
 
 type ProductCardProps = {

@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import { EvilIcons, Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
-import { useOrderMethod } from '~/lib/shipping-method';
+import { useOrderMethod } from '~/lib/states/shipping-method';
 
 export default function Search() {
   const { method, setMethod } = useOrderMethod();

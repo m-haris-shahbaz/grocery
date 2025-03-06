@@ -3,10 +3,10 @@ import React, { useMemo, useState, useRef } from 'react';
 import { router } from 'expo-router';
 import { Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import Animated, { FadeInDown } from 'react-native-reanimated';
-import { useCart } from '~/lib/use-cart';
+import { useCart } from '~/lib/states/use-cart';
 import { currencyFormatter } from '~/lib/helper';
 import AddressModal, { AddressModalRef } from '~/components/user/Address';
-import { useOrderMethod } from '~/lib/shipping-method';
+import { useOrderMethod } from '~/lib/states/shipping-method';
 import { Address } from '~/lib/types';
 
 type PaymentMethod = 'card' | 'cash' | 'wallet';

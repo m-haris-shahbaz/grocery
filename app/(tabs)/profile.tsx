@@ -2,6 +2,7 @@ import { View, Text, SafeAreaView, TouchableOpacity, ScrollView } from 'react-na
 import React from 'react';
 import HeaderView from '~/components/layout/Header';
 import { Ionicons, MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
+import { Link } from 'expo-router';
 
 export default function ProfileScreen() {
   const menuItems = [
@@ -65,6 +66,9 @@ export default function ProfileScreen() {
           </ScrollView>
 
           {/* Logout Button Outside ScrollView */}
+          <Link href={'/(auth)/signin'}>
+            <Text>Login</Text>
+          </Link>
           <TouchableOpacity className="mt-4 rounded-full border border-gray-200 p-4">
             <Text className="text-center text-base font-medium text-red-500">Log Out</Text>
           </TouchableOpacity>

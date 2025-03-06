@@ -11,7 +11,7 @@ import React, { useMemo } from 'react';
 import { router } from 'expo-router';
 import { AntDesign, Ionicons, MaterialIcons } from '@expo/vector-icons';
 import Animated, { FadeInDown } from 'react-native-reanimated';
-import { useCart } from '~/lib/use-cart';
+import { useCart } from '~/lib/states/use-cart';
 import { currencyFormatter, weightConverter } from '~/lib/helper';
 import { Product } from '~/lib/types';
 

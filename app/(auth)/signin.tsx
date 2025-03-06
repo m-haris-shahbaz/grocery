@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   View,
   Text,
@@ -13,6 +13,8 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Link, router } from 'expo-router';
+import { signInWithEmail, signInWithGoogle } from '~/lib/auth/supabase';
+import { useAuth } from '~/lib/auth/auth-context';
 
 export default function SignIn() {
   const [email, setEmail] = useState('');
@@ -20,6 +22,8 @@ export default function SignIn() {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
+
+  const { setSignedIn } = useAuth();
 
   const handleSignIn = async () => {
     // Basic validation
@@ -31,11 +35,9 @@ export default function SignIn() {
     try {
       setLoading(true);
       setError('');
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      // In a real app, you would authenticate with your backend/auth service here
-
+      await signInWithEmail(email, password);
+      setSignedIn(true);
       router.replace('/');
     } catch (err) {
       setError('Failed to sign in. Please check your credentials.');
@@ -49,11 +51,9 @@ export default function SignIn() {
     try {
       setLoading(true);
       setError('');
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      // In a real app, you would implement Google authentication here
-
+      await signInWithGoogle();
+      setSignedIn(true);
       router.replace('/');
     } catch (err) {
       setError('Google sign in failed. Please try again.');

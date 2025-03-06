@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   View,
   Text,
@@ -13,6 +13,8 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Link, router } from 'expo-router';
+import { signUpWithEmail, signInWithGoogle } from '~/lib/auth/supabase';
+import { useAuth } from '~/lib/auth/auth-context';
 
 export default function SignUp() {
   const [name, setName] = useState('');
@@ -21,6 +23,8 @@ export default function SignUp() {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
+
+  const { setSignedIn } = useAuth();
 
   const handleSignUp = async () => {
     // Basic validation
@@ -32,11 +36,10 @@ export default function SignUp() {
     try {
       setLoading(true);
       setError('');
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      // In a real app, you would register with your backend/auth service here
-
+      // Register with Supabase, including the user's name in the metadata
+      await signUpWithEmail(email, password, { full_name: name });
+      setSignedIn(true);
       router.replace('/');
     } catch (err) {
       setError('Failed to create account. Please try again.');
@@ -50,11 +53,9 @@ export default function SignUp() {
     try {
       setLoading(true);
       setError('');
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      // In a real app, you would implement Google authentication here
-
+      await signInWithGoogle();
+      setSignedIn(true);
       router.replace('/');
     } catch (err) {
       setError('Google sign up failed. Please try again.');

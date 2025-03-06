@@ -1,31 +1,24 @@
 import '../global.css';
-import React from 'react';
-import { Slot } from 'expo-router';
-import { ActivityIndicator, View } from 'react-native';
-import { AuthProvider, useAuth } from '~/lib/auth/auth-context';
+import { Stack } from 'expo-router';
 
-// The Root Layout Component
 export default function RootLayout() {
   return (
-    <AuthProvider>
-      <RootLayoutNav />
-    </AuthProvider>
+    <Stack
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <Stack.Screen name="(tabs)" />
+      <Stack.Screen name="cart/index" />
+      <Stack.Screen name="cart/checkout" />
+      <Stack.Screen name="products/[productId]" />
+      <Stack.Screen
+        name="search/index"
+        options={{
+          animation: 'slide_from_bottom',
+          gestureEnabled: true,
+          gestureDirection: 'vertical',
+        }}
+      />
+    </Stack>
   );
-}
-
-// The main navigation component
-function RootLayoutNav() {
-  const { isLoading } = useAuth();
-
-  // Show loading screen while checking authentication
-  if (isLoading) {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ActivityIndicator size="large" color="#2f6f39" />
-      </View>
-    );
-  }
-
-  // Return the slot for other components
-  return <Slot />;
 }

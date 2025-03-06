@@ -1,13 +1,13 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import { router, useSegments } from 'expo-router';
 import { checkSession } from './supabase';
+import { User } from '@supabase/supabase-js';
 
 // Define context types
 type AuthContextType = {
   signedIn: boolean;
   setSignedIn: (signedIn: boolean) => void;
   isLoading: boolean;
-  user: any | null; // You could create a proper User type
+  user: any | User; // You could create a proper User type
 };
 
 // Create context with default values
@@ -25,9 +25,7 @@ export const useAuth = () => useContext(AuthContext);
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [signedIn, setSignedIn] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [user, setUser] = useState<any>(null);
-  const segments = useSegments();
-
+  const [user, setUser] = useState<User | null>(null);
   // Check authentication status when the component mounts
   useEffect(() => {
     const checkAuth = async () => {
@@ -48,21 +46,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   // Handle routing based on auth status
-  useEffect(() => {
-    // Don't do anything while still loading
-    if (isLoading) return;
-
-    const inAuthGroup = segments[0] === '(auth)';
-
-    // If not signed in and not in auth group, redirect to sign-in
-    if (!signedIn && !inAuthGroup) {
-      router.replace('/signin');
-    }
-    // If signed in and in auth group, redirect to home
-    else if (signedIn && inAuthGroup) {
-      router.replace('/');
-    }
-  }, [signedIn, segments, isLoading]);
 
   // Provide the context value
   const value = {

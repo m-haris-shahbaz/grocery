@@ -3,8 +3,10 @@ import React from 'react';
 import HeaderView from '~/components/layout/Header';
 import { Ionicons, MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
 import { Link } from 'expo-router';
+import { useAuth } from '~/lib/auth/auth-context';
 
 export default function ProfileScreen() {
+  const { user } = useAuth();
   const menuItems = [
     {
       id: '1',
@@ -41,8 +43,8 @@ export default function ProfileScreen() {
               <View className="flex-row items-center gap-4">
                 <View className="h-16 w-16 rounded-full bg-white" />
                 <View>
-                  <Text className="text-xl font-semibold">John Doe</Text>
-                  <Text className="text-gray-600">+971 50 123 4567</Text>
+                  <Text className="text-xl font-semibold">{user?.user_metadata.full_name}</Text>
+                  <Text className="text-gray-600">{user?.email}</Text>
                 </View>
               </View>
             </View>
@@ -65,10 +67,6 @@ export default function ProfileScreen() {
             </View>
           </ScrollView>
 
-          {/* Logout Button Outside ScrollView */}
-          <Link href={'/(auth)/signin'}>
-            <Text>Login</Text>
-          </Link>
           <TouchableOpacity className="mt-4 rounded-full border border-gray-200 p-4">
             <Text className="text-center text-base font-medium text-red-500">Log Out</Text>
           </TouchableOpacity>

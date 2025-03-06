@@ -42,7 +42,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="profile"
+        name="(protected)"
         options={{
           title: 'Profile',
           headerShown: false,

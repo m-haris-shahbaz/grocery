@@ -24,7 +24,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   return (
     <TouchableOpacity
       onPress={onPress}
-      className="mt-4 flex h-[220px] w-[180px] justify-center rounded-xl border border-gray-200 bg-white p-4">
+      className="mt-4 flex h-[220px] w-[170px] justify-center rounded-xl border border-gray-200 bg-white p-4">
       <Image
         source={{
           uri: image,
@@ -32,7 +32,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         className="mb-2 h-[120px] w-[120px] self-center"
         resizeMode="contain"
       />
-      <View className="flex-row items-center justify-between">
+      <View className="w-full flex-row items-center justify-between">
         <View className="gap-y-2">
           <Text>{name}</Text>
           <Text className="text-md text-gray-600">{weightConverter(weight)}</Text>

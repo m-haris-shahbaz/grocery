@@ -6,7 +6,7 @@ export type Product = {
   stock: number;
   quantity: number;
   image: string;
-  store: Store;
+  storeId: string;
   category: string;
 };
 
@@ -25,6 +25,10 @@ export type Store = {
   name: string;
   address: string;
   city: string;
+  deliveryFee: number;
+  deliveryTime: string;
+  minOrder: number;
+  description: string;
   phone: string;
   image: string;
   rating: number;

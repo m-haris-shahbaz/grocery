@@ -1,18 +1,18 @@
-import { Link, Stack, Tabs } from 'expo-router';
-import { AntDesign, FontAwesome6, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { Tabs } from 'expo-router';
+import { AntDesign, FontAwesome6, MaterialCommunityIcons } from '@expo/vector-icons';
 
 export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: '#2f6f39', // Stays the same
-        tabBarInactiveTintColor: '#444', // Slightly darker for better contrast
+        tabBarActiveTintColor: '#2f6f39',
+        tabBarInactiveTintColor: '#444',
         headerShown: true,
         tabBarStyle: {
-          backgroundColor: '#f9fbf5', // A lighter, almost pastel version of #e4fde1
+          backgroundColor: '#f9fbf5',
         },
         headerStyle: {
-          backgroundColor: '#f8f8f8', // Soft off-white for the header
+          backgroundColor: '#f8f8f8',
         },
       }}>
       <Tabs.Screen
@@ -50,11 +50,17 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="store/index"
+        options={{
+          headerShown: false,
+          href: null,
+        }}
+      />
+      <Tabs.Screen
         name="store/[storeId]"
         options={{
-          title: 'Store',
           headerShown: false,
-          tabBarIcon: ({ color }) => <AntDesign name="user" size={24} color={color} />,
+          href: null,
         }}
       />
     </Tabs>

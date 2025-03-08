@@ -7,7 +7,7 @@ import { useCart } from '~/lib/states/use-cart';
 export default function ProductScreen() {
   const [quantity, setQuantity] = useState(1);
   const { productId } = useLocalSearchParams<{ productId: string }>();
-  const { addProduct } = useCart();
+  const { addProduct, addtoWishList, WishListItems } = useCart();
   const product = {
     id: '1',
     name: 'Apple',
@@ -15,6 +15,7 @@ export default function ProductScreen() {
     stock: 5,
     category: 'Fruits',
     price: 5,
+    storeId: 's1',
     image: 'https://img.freepik.com/free-psd/close-up-delicious-apple_23-2151868338.jpg',
   };
 
@@ -22,6 +23,12 @@ export default function ProductScreen() {
     addProduct({ ...product, quantity });
     router.push('/cart');
   };
+
+  const addToWishList = () => {
+    addtoWishList({ ...product, quantity });
+  };
+
+  const isInWishList = WishListItems.some((item) => item.id === product.id);
 
   return (
     <SafeAreaView className="flex-1 bg-background">
@@ -44,8 +51,15 @@ export default function ProductScreen() {
         <View className="p-6">
           <View className="flex-row items-center justify-between">
             <Text className="text-3xl font-semibold text-gray-800">{product.name}</Text>
-            <TouchableOpacity className="rounded-full border border-gray-200 bg-white p-2">
-              <Entypo name="heart-outlined" size={32} color="#2f6f39" />
+            <TouchableOpacity
+              onPress={addToWishList}
+              disabled={isInWishList}
+              className="rounded-full border border-gray-200 bg-white p-2">
+              <Entypo
+                name={`${isInWishList ? 'heart' : 'heart-outlined'}`}
+                size={32}
+                color="#2f6f39"
+              />
             </TouchableOpacity>
           </View>
 

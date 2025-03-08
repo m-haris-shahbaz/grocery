@@ -18,9 +18,15 @@ export default function HeaderView({ isDelivery, title }: HeaderViewProps) {
       params: { source: 'header' },
     });
   };
+  const navigateToWishList = () => {
+    router.push({
+      pathname: '/wishlist',
+      params: { source: 'header' },
+    });
+  };
 
   const { CartItems } = useCart();
-  const { method, orderAddress } = useOrderMethod();
+  const { orderAddress } = useOrderMethod();
 
   return (
     <View className="flex-row justify-between">
@@ -32,11 +38,6 @@ export default function HeaderView({ isDelivery, title }: HeaderViewProps) {
               <Text className="text-lg font-semibold">
                 {`${orderAddress.title}, ${orderAddress.building}` || 'Address'}
               </Text>
-              <TouchableOpacity
-                onPress={() => router.push('/store/1')}
-                className="flex-row items-center gap-1">
-                <Text>Hi</Text>
-              </TouchableOpacity>
               <FontAwesome name="angle-down" size={16} color="black" />
             </TouchableOpacity>
           </View>
@@ -44,12 +45,19 @@ export default function HeaderView({ isDelivery, title }: HeaderViewProps) {
       ) : (
         <Text className="text-3xl font-semibold">{title}</Text>
       )}
-      <TouchableOpacity onPress={navigateToCart} className="relative items-center self-center">
-        <EvilIcons name="cart" size={32} color="black" />
-        <View className="absolute -right-2 -top-2 h-5 w-5 items-center justify-center rounded-full bg-lime-200">
-          <Text className="text-sm font-bold">{CartItems.length}</Text>
-        </View>
-      </TouchableOpacity>
+      <View className="flex-row items-center gap-4">
+        <TouchableOpacity
+          onPress={navigateToWishList}
+          className="relative items-center self-center">
+          <EvilIcons name="heart" size={32} color="black" />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={navigateToCart} className="relative items-center self-center">
+          <EvilIcons name="cart" size={32} color="black" />
+          <View className="absolute -right-2 -top-2 h-5 w-5 items-center justify-center rounded-full bg-lime-200">
+            <Text className="text-sm font-bold">{CartItems.length}</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }

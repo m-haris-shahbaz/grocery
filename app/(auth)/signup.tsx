@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Link, router } from 'expo-router';
-import { signUpWithEmail, signInWithGoogle } from '~/lib/auth/supabase';
+import { signUpWithEmail, signInWithGoogle } from '~/lib/auth/db';
 import { useAuth } from '~/lib/auth/auth-context';
 
 export default function SignUp() {

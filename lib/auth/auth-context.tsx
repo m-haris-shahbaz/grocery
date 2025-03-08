@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import { checkSession } from './supabase';
+import { checkSession } from './db';
 import { User } from '@supabase/supabase-js';
 
 // Define context types
